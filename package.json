@@ -3,7 +3,16 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "db:migrate": "bun run scripts/migrate.ts",
+    "db:migrate:dev": "bun run scripts/migrate.ts dev",
+    "db:migrate:deploy": "bun run scripts/migrate.ts deploy",
+    "db:migrate:reset": "bun run scripts/migrate.ts reset",
+    "db:migrate:status": "bun run scripts/migrate.ts status",
+    "db:seed": "bun run scripts/seed.ts",
+    "db:generate": "bunx prisma generate",
+    "db:studio": "bunx prisma studio",
+    "db:push": "bunx prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^6.16.2",

@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  email      String   @unique
+  username   String   @unique
+  first_name String?  @map("first_name")
+  last_name  String?  @map("last_name")
+  avatar_url String?  @map("avatar_url")
+  bio        String?
+  is_admin   Boolean  @default(false) @map("is_admin")
+  created_at DateTime @default(now()) @map("created_at")
+  updated_at DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  posts    Post[]
+  comments Comment[]
+
+  @@map("users")
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  content     String?
+  excerpt     String?
+  status      PostStatus @default(DRAFT)
+  author_id   String     @map("author_id")
+  view_count  Int        @default(0) @map("view_count")
+  like_count  Int        @default(0) @map("like_count")
+  published_at DateTime? @map("published_at")
+  created_at  DateTime   @default(now()) @map("created_at")
+  updated_at  DateTime   @updatedAt @map("updated_at")
+
+  // Relationships
+  author   User       @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  comments Comment[]
+  post_tags PostTag[]
+
+  @@index([status])
+  @@index([author_id])
+  @@index([created_at])
+  @@map("posts")
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  content    String
+  author_id  String   @map("author_id")
+  post_id    String   @map("post_id")
+  parent_id  String?  @map("parent_id")
+  created_at DateTime @default(now()) @map("created_at")
+  updated_at DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  author  User      @relation(fields: [author_id], references: [id], onDelete: Cascade)
+  post    Post      @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  parent  Comment?  @relation("CommentReplies", fields: [parent_id], references: [id])
+  replies Comment[] @relation("CommentReplies")
+
+  @@index([post_id])
+  @@index([author_id])
+  @@index([parent_id])
+  @@map("comments")
+}
+
+model Tag {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  color       String?  @default("#6B7280")
+  created_at  DateTime @default(now()) @map("created_at")
+  updated_at  DateTime @updatedAt @map("updated_at")
+
+  // Relationships
+  post_tags PostTag[]
+
+  @@map("tags")
+}
+
+model PostTag {
+  id      String @id @default(cuid())
+  post_id String @map("post_id")
+  tag_id  String @map("tag_id")
+
+  // Relationships
+  post Post @relation(fields: [post_id], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+
+  @@unique([post_id, tag_id])
+  @@map("post_tags")
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
