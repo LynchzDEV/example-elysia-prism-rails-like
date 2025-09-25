@@ -3,6 +3,7 @@ import { db } from './lib/database';
 import { logger } from './utils/logger';
 import { appConfig } from './config/app';
 import { userController } from './controllers/user.controller';
+import { postController } from './controllers/post.controller';
 
 export const app = new Elysia()
   .onStart(async () => {
@@ -29,6 +30,7 @@ export const app = new Elysia()
       architecture: 'Clean Architecture with Service Layer',
       endpoints: {
         users: '/users',
+        posts: '/posts',
         health: '/health'
       },
       rails_like_commands: {
@@ -64,6 +66,7 @@ export const app = new Elysia()
   })
 
   .use(userController)
+  .use(postController)
 
   .onError(({ code, error, set }) => {
     logger.error(`Application error: ${code} - ${error.message}`, '💥');

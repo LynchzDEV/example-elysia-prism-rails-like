@@ -9,6 +9,8 @@ export type CreatePostInput = {
   excerpt?: string;
   status?: PostStatus;
   authorId: string;
+  viewCount?: number;
+  likeCount?: number;
 };
 
 export type PostWithAuthor = Post & {
@@ -38,8 +40,8 @@ export class PostService extends BaseService {
             select: {
               id: true,
               username: true,
-              firstName: true,
-              lastName: true
+              first_name: true,
+              last_name: true
             }
           },
           _count: {
@@ -70,8 +72,8 @@ export class PostService extends BaseService {
             select: {
               id: true,
               username: true,
-              firstName: true,
-              lastName: true,
+              first_name: true,
+              last_name: true,
               bio: true
             }
           },
@@ -81,12 +83,12 @@ export class PostService extends BaseService {
                 select: {
                   id: true,
                   username: true,
-                  firstName: true,
-                  lastName: true
+                  first_name: true,
+                  last_name: true
                 }
               }
             },
-            where: { parentId: null },
+            where: { parent_id: null },
             orderBy: { created_at: 'asc' }
           }
         }
@@ -96,10 +98,10 @@ export class PostService extends BaseService {
         // Increment view count
         await prisma.post.update({
           where: { id },
-          data: { viewCount: { increment: 1 } }
+          data: { view_count: { increment: 1 } }
         });
 
-        this.logSuccess(`Found post: ${post.title} (views: ${post.viewCount + 1})`);
+        this.logSuccess(`Found post: ${post.title} (views: ${post.view_count + 1})`);
       } else {
         this.logOperation(`Post not found with ID: ${id}`);
       }
@@ -123,6 +125,8 @@ export class PostService extends BaseService {
           excerpt: data.excerpt,
           status: data.status || 'DRAFT',
           author_id: data.authorId,
+          view_count: data.viewCount || 0,
+          like_count: data.likeCount || 0,
           published_at: data.status === 'PUBLISHED' ? new Date() : null
         }
       });

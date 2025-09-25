@@ -119,7 +119,7 @@ export class SeedCommand extends BaseCommand {
         content: '# Getting Started with Elysia and Prisma\\n\\nElysia is a fast and modern TypeScript framework...',
         excerpt: 'Learn how to set up a modern web application using Elysia framework and Prisma ORM.',
         status: 'PUBLISHED' as const,
-        author_id: users[0].id,
+        authorId: users[0].id,
         viewCount: 245,
         likeCount: 18
       },
@@ -129,7 +129,7 @@ export class SeedCommand extends BaseCommand {
         content: '# Advanced TypeScript Patterns\\n\\nTypeScript has evolved significantly...',
         excerpt: 'Explore advanced TypeScript patterns that make backend development more robust.',
         status: 'PUBLISHED' as const,
-        author_id: users[1].id,
+        authorId: users[1].id,
         viewCount: 189,
         likeCount: 23
       },
@@ -139,7 +139,7 @@ export class SeedCommand extends BaseCommand {
         content: '# Building Scalable APIs\\n\\nCreating scalable APIs requires...',
         excerpt: 'A comprehensive guide to building APIs that scale with your business needs.',
         status: 'PUBLISHED' as const,
-        author_id: users[2].id,
+        authorId: users[2].id,
         viewCount: 156,
         likeCount: 12
       },
@@ -149,7 +149,7 @@ export class SeedCommand extends BaseCommand {
         content: '# Database Migrations\\n\\nOne of the best features of Ruby on Rails...',
         excerpt: 'Learn how to implement Rails-like database migrations in your Node.js projects.',
         status: 'DRAFT' as const,
-        author_id: users[0].id
+        authorId: users[0].id
       }
     ];
 
