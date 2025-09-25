@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 import { connectDatabase, disconnectDatabase } from './database';
 import { postsRoutes } from './routes/posts';
 import { usersRoutes } from './routes/users';
+import { simpleRoutes } from './routes/simple';
 
 const app = new Elysia()
   .onStart(async () => {
@@ -62,6 +63,7 @@ const app = new Elysia()
 
   .use(usersRoutes)
   .use(postsRoutes)
+  .use(simpleRoutes)
 
   .listen(3000);
 
@@ -70,14 +72,19 @@ console.log('🦊 Elysia + Prisma Blog API');
 console.log('============================');
 console.log(`🌐 Server: http://${app.server?.hostname}:${app.server?.port}`);
 console.log('📖 API Documentation:');
-console.log('  GET  /              - API info');
-console.log('  GET  /health        - Health check');
-console.log('  GET  /users         - List all users');
-console.log('  POST /users         - Create user');
-console.log('  GET  /users/:id     - Get user by ID');
-console.log('  GET  /posts         - List all posts');
-console.log('  POST /posts         - Create post');
-console.log('  GET  /posts/:id     - Get post by ID');
+console.log('  GET  /                - API info');
+console.log('  GET  /health          - Health check');
+console.log('  GET  /users           - List all users (complex)');
+console.log('  POST /users           - Create user');
+console.log('  GET  /users/:id       - Get user by ID');
+console.log('  GET  /posts           - List all posts (complex)');
+console.log('  POST /posts           - Create post');
+console.log('  GET  /posts/:id       - Get post by ID');
+console.log('');
+console.log('🎯 Working Endpoints (Console Logging Demo):');
+console.log('  GET  /simple/posts    - List posts (working)');
+console.log('  GET  /simple/users    - List users (working)');
+console.log('  GET  /simple/stats    - Database stats (working)');
 console.log('');
 console.log('🛠️  Rails-like Commands:');
 console.log('  bun run db:migrate  - Run migrations');

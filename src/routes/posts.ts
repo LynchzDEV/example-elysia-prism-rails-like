@@ -11,11 +11,11 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
           select: {
             id: true,
             username: true,
-            first_name: true,
-            last_name: true,
+            firstName: true,
+            lastName: true,
           }
         },
-        post_tags: {
+        postTags: {
           include: {
             tag: {
               select: {
@@ -57,13 +57,13 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
           select: {
             id: true,
             username: true,
-            first_name: true,
-            last_name: true,
+            firstName: true,
+            lastName: true,
             bio: true,
             avatar_url: true
           }
         },
-        post_tags: {
+        postTags: {
           include: {
             tag: true
           }
@@ -74,8 +74,8 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
               select: {
                 id: true,
                 username: true,
-                first_name: true,
-                last_name: true
+                firstName: true,
+                lastName: true
               }
             },
             replies: {
@@ -84,15 +84,15 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
                   select: {
                     id: true,
                     username: true,
-                    first_name: true,
-                    last_name: true
+                    firstName: true,
+                    lastName: true
                   }
                 }
               }
             }
           },
           where: {
-            parent_id: null // Only get top-level comments
+            parentId: null // Only get top-level comments
           },
           orderBy: {
             created_at: 'asc'
@@ -114,7 +114,7 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
     await prisma.post.update({
       where: { id },
       data: {
-        view_count: {
+        viewCount: {
           increment: 1
         }
       }
@@ -139,16 +139,16 @@ export const postsRoutes = new Elysia({ prefix: '/posts' })
         content: body.content,
         excerpt: body.excerpt,
         status: body.status || 'DRAFT',
-        author_id: body.author_id,
-        published_at: body.status === 'PUBLISHED' ? new Date() : null
+        authorId: body.author_id,
+        publishedAt: body.status === 'PUBLISHED' ? new Date() : null
       },
       include: {
         author: {
           select: {
             id: true,
             username: true,
-            first_name: true,
-            last_name: true
+            firstName: true,
+            lastName: true
           }
         }
       }

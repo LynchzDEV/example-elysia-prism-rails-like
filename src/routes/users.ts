@@ -9,11 +9,11 @@ export const usersRoutes = new Elysia({ prefix: '/users' })
       select: {
         id: true,
         username: true,
-        first_name: true,
-        last_name: true,
+        firstName: true,
+        lastName: true,
         bio: true,
-        avatar_url: true,
-        is_admin: true,
+        avatarUrl: true,
+        isAdmin: true,
         created_at: true,
         _count: {
           select: {
@@ -44,11 +44,11 @@ export const usersRoutes = new Elysia({ prefix: '/users' })
       select: {
         id: true,
         username: true,
-        first_name: true,
-        last_name: true,
+        firstName: true,
+        lastName: true,
         bio: true,
-        avatar_url: true,
-        is_admin: true,
+        avatarUrl: true,
+        isAdmin: true,
         created_at: true,
         posts: {
           select: {
@@ -57,10 +57,10 @@ export const usersRoutes = new Elysia({ prefix: '/users' })
             slug: true,
             excerpt: true,
             status: true,
-            view_count: true,
-            like_count: true,
+            viewCount: true,
+            likeCount: true,
             created_at: true,
-            published_at: true
+            publishedAt: true
           },
           orderBy: {
             created_at: 'desc'
@@ -101,20 +101,20 @@ export const usersRoutes = new Elysia({ prefix: '/users' })
         data: {
           email: body.email,
           username: body.username,
-          first_name: body.first_name,
-          last_name: body.last_name,
+          firstName: body.first_name,
+          lastName: body.last_name,
           bio: body.bio,
-          avatar_url: body.avatar_url,
-          is_admin: body.is_admin || false
+          avatarUrl: body.avatar_url,
+          isAdmin: body.is_admin || false
         },
         select: {
           id: true,
           username: true,
-          first_name: true,
-          last_name: true,
+          firstName: true,
+          lastName: true,
           bio: true,
-          avatar_url: true,
-          is_admin: true,
+          avatarUrl: true,
+          isAdmin: true,
           created_at: true
         }
       });
