@@ -3,13 +3,14 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts",
-    "db:migrate": "bun run scripts/migrate.ts",
-    "db:migrate:dev": "bun run scripts/migrate.ts dev",
-    "db:migrate:deploy": "bun run scripts/migrate.ts deploy",
-    "db:migrate:reset": "bun run scripts/migrate.ts reset",
-    "db:migrate:status": "bun run scripts/migrate.ts status",
-    "db:seed": "bun run scripts/seed.ts",
+    "dev": "bun run --watch src/server.ts",
+    "start": "bun run src/server.ts",
+    "db:migrate": "bun run cli/migrate.ts",
+    "db:migrate:dev": "bun run cli/migrate.ts dev",
+    "db:migrate:deploy": "bun run cli/migrate.ts deploy",
+    "db:migrate:reset": "bun run cli/migrate.ts reset",
+    "db:migrate:status": "bun run cli/migrate.ts status",
+    "db:seed": "bun run cli/seed.ts",
     "db:generate": "bunx prisma generate",
     "db:studio": "bunx prisma studio",
     "db:push": "bunx prisma db push"
@@ -18,7 +19,8 @@
     "@prisma/client": "^6.16.2",
     "elysia": "latest",
     "pg": "^8.16.3",
-    "prisma": "^6.16.2"
+    "prisma": "^6.16.2",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/pg": "^8.15.5",
